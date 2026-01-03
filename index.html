@@ -1317,76 +1317,20 @@
                   </p>
                 </div>
 
-                <form id="rsvp-form" action="https://docs.google.com/forms/d/e/1FAIpQLSc0oSoJ-FjPVdPMjU-vlbByxAAmZNU_AMeDe3pjmvITpK1O6w/formResponse" method="POST" target="hidden_iframe">
-                  <div class="mb-3">
-                    <label for="guest-name" class="form-label">Họ và tên</label>
-                    <input
-                      type="text"
-                      class="form-control rounded-4 shadow-sm"
-                      id="guest-name"
-                      name="entry.511332419"
-                      placeholder="Nhập tên của bạn"
-                      required
-                    />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label">Bạn sẽ tham dự chứ?</label>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="entry.2606289"
-                        id="attend-yes"
-                        value="Có, tôi sẽ tham dự"
-                        required
-                      />
-                      <label class="form-check-label" for="attend-yes">
-                        Có, tôi sẽ tham dự
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="entry.2606289"
-                        id="attend-no"
-                        value="Tôi bận, rất tiếc không thể tham dự"
-                      />
-                      <label class="form-check-label" for="attend-no">
-                        Tôi bận, rất tiếc không thể tham dự
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="guest-count" class="form-label">Số lượng người tham dự</label>
-                    <select
-                      class="form-select rounded-4 shadow-sm"
-                      id="guest-count"
-                      name="entry.931629939"
-                      required
-                    >
-                      <option value="1">1 người</option>
-                      <option value="2">2 người</option>
-                      <option value="3">3 người</option>
-                      <option value="4">4 người</option>
-                      <option value="5">5 người</option>
-                    </select>
-                  </div>
-
-                  <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg rounded-4 shadow">
-                      <i class="fa-solid fa-paper-plane me-2"></i>Gửi xác nhận
-                    </button>
-                  </div>
-                </form>
-
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-                
-                <div id="success-message" class="alert alert-success rounded-4 mt-3" style="display: none;">
-                  <i class="fa-solid fa-check-circle me-2"></i>
-                  Cảm ơn bạn đã xác nhận! Chúng mình rất mong được gặp bạn.
+                <div class="text-center py-3">
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSc0oSoJ-FjPVdPMjU-vlbByxAAmZNU_AMeDe3pjmvITpK1O6w/viewform?usp=dialog"
+                    target="_blank"
+                    class="btn btn-primary btn-lg rounded-pill shadow-sm px-5 py-3"
+                    style="font-size: 1.1rem"
+                  >
+                    <i class="fa-solid fa-calendar-check me-2"></i>
+                    Xác nhận tham dự
+                  </a>
+                  <p class="mt-3 mb-0 text-muted" style="font-size: 0.9rem">
+                    <i class="fa-solid fa-arrow-up-right-from-square me-1"></i>
+                    Click để mở form xác nhận
+                  </p>
                 </div>
               </div>
               
@@ -1591,45 +1535,9 @@
     <!-- Form Submit Handler Script -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('rsvp-form');
-        const successMessage = document.getElementById('success-message');
-        
-        if (form) {
-          form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(form);
-            
-            // Submit to Google Forms
-            fetch(form.action, {
-              method: 'POST',
-              body: formData,
-              mode: 'no-cors'
-            }).then(function() {
-              // Show success message
-              successMessage.style.display = 'block';
-              
-              // Reset form
-              form.reset();
-              
-              // Scroll to success message
-              successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              
-              // Hide success message after 5 seconds
-              setTimeout(function() {
-                successMessage.style.display = 'none';
-              }, 5000);
-            }).catch(function(error) {
-              console.error('Error:', error);
-              alert('Có lỗi xảy ra, vui lòng thử lại!');
-            });
-          });
-        }
-        
         // Ensure comment section is visible and scrollable
         document.addEventListener('undangan.open', function() {
-          console.log('Invitation opened - form is now accessible');
+          console.log('Invitation opened - RSVP section is now accessible');
           
           // Make sure comment section is visible
           const commentSection = document.getElementById('comment');
@@ -1640,7 +1548,7 @@
           }
         });
         
-        // Handle menu click to scroll to form
+        // Handle menu click to scroll to RSVP section
         const commentLink = document.querySelector('a[href="#comment"]');
         if (commentLink) {
           commentLink.addEventListener('click', function(e) {
