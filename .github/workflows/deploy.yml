@@ -32,6 +32,13 @@ jobs:
       - name: Build project
         run: npm run build:public
 
+      - name: Verify build output
+        run: |
+          echo "Checking public directory contents:"
+          ls -la public/
+          echo "Checking dist files:"
+          ls -la public/dist/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
