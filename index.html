@@ -1599,10 +1599,30 @@
           });
         }
         
-        // Auto-open invitation after page loads (for testing)
+        // Ensure comment section is visible and scrollable
         document.addEventListener('undangan.open', function() {
           console.log('Invitation opened - form is now accessible');
+          
+          // Make sure comment section is visible
+          const commentSection = document.getElementById('comment');
+          if (commentSection) {
+            commentSection.style.display = 'block';
+            commentSection.style.visibility = 'visible';
+            commentSection.style.opacity = '1';
+          }
         });
+        
+        // Handle menu click to scroll to form
+        const commentLink = document.querySelector('a[href="#comment"]');
+        if (commentLink) {
+          commentLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const commentSection = document.getElementById('comment');
+            if (commentSection) {
+              commentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        }
       });
     </script>
 
