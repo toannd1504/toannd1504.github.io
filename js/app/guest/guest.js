@@ -306,11 +306,9 @@ export const guest = (() => {
             document.getElementById('information')?.remove();
         }
 
-        // wait until welcome screen is show.
-        await util.changeOpacity(document.getElementById('welcome'), true);
-
-        // remove loading screen and show welcome screen.
-        await util.changeOpacity(document.getElementById('loading'), false).then((el) => el.remove());
+        // Skip loading and show welcome screen immediately
+        document.getElementById('loading')?.remove();
+        document.getElementById('welcome').style.opacity = '1';
     };
 
     /**

@@ -1598,6 +1598,11 @@
             });
           });
         }
+        
+        // Auto-open invitation after page loads (for testing)
+        document.addEventListener('undangan.open', function() {
+          console.log('Invitation opened - form is now accessible');
+        });
       });
     </script>
 
