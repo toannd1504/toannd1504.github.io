@@ -157,6 +157,21 @@
       crossorigin="anonymous"
     ></script>
     <script src="./dist/guest.js"></script>
+    <script>
+      // Handle RSVP form submission
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('rsvp-form');
+        if (form) {
+          form.addEventListener('submit', function(e) {
+            // Show success message after a short delay
+            setTimeout(function() {
+              document.getElementById('success-message').style.display = 'block';
+              form.style.display = 'none';
+            }, 1000);
+          });
+        }
+      });
+    </script>
   </head>
 
   <!-- Jika tidak menggunakan komentar, hapus atribut data-key dan data-url, serta abaikan file dashboard.html. -->
@@ -1258,7 +1273,7 @@
           <!-- Comment -->
           <section class="bg-light-dark my-0 pb-0 pt-3" id="comment">
             <div class="container">
-              <div class="border rounded-5 shadow p-3 mb-4 text-center">
+              <div class="border rounded-5 shadow p-3 mb-4">
                 <h2
                   class="font-esthetic text-center mt-2 mb-3"
                   style="font-size: 2.25rem"
@@ -1266,7 +1281,7 @@
                   Xác nhận tham dự
                 </h2>
 
-                <div class="alert alert-info rounded-4 mx-auto" style="max-width: 500px">
+                <div class="alert alert-info rounded-4 mb-4">
                   <p style="font-size: 1.2rem">💐</p>
                   <p class="m-0">
                     Đừng quên gửi xác nhận tham dự để chúng mình có thể đón
@@ -1274,21 +1289,77 @@
                   </p>
                 </div>
 
-                <div class="d-grid gap-2 my-4" style="max-width: 400px; margin: 0 auto;">
-                  <a
-                    href="https://forms.gle/YOUR_GOOGLE_FORM_ID"
-                    target="_blank"
-                    class="btn btn-primary btn-lg rounded-4 shadow"
-                    style="padding: 1rem 2rem; font-size: 1.1rem;"
-                  >
-                    <i class="fa-solid fa-clipboard-check me-2"></i>Gửi xác nhận tham dự
-                  </a>
-                </div>
+                <form id="rsvp-form" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="hidden_iframe">
+                  <div class="mb-3">
+                    <label for="guest-name" class="form-label">Họ và tên</label>
+                    <input
+                      type="text"
+                      class="form-control rounded-4 shadow-sm"
+                      id="guest-name"
+                      name="entry.YOUR_NAME_ENTRY_ID"
+                      placeholder="Nhập tên của bạn"
+                      required
+                    />
+                  </div>
 
-                <p class="text-muted mt-3 mb-2" style="font-size: 0.9rem">
-                  <i class="fa-solid fa-info-circle me-1"></i>
-                  Nhấn vào nút để điền thông tin xác nhận
-                </p>
+                  <div class="mb-3">
+                    <label class="form-label">Bạn sẽ tham dự chứ?</label>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="entry.YOUR_ATTENDANCE_ENTRY_ID"
+                        id="attend-yes"
+                        value="Có, tôi sẽ tham dự"
+                        required
+                      />
+                      <label class="form-check-label" for="attend-yes">
+                        Có, tôi sẽ tham dự
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="entry.YOUR_ATTENDANCE_ENTRY_ID"
+                        id="attend-no"
+                        value="Tôi bận, rất tiếc không thể tham dự"
+                      />
+                      <label class="form-check-label" for="attend-no">
+                        Tôi bận, rất tiếc không thể tham dự
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="guest-count" class="form-label">Số lượng người tham dự</label>
+                    <select
+                      class="form-select rounded-4 shadow-sm"
+                      id="guest-count"
+                      name="entry.YOUR_COUNT_ENTRY_ID"
+                      required
+                    >
+                      <option value="1">1 người</option>
+                      <option value="2">2 người</option>
+                      <option value="3">3 người</option>
+                      <option value="4">4 người</option>
+                      <option value="5">5 người</option>
+                    </select>
+                  </div>
+
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-4 shadow">
+                      <i class="fa-solid fa-paper-plane me-2"></i>Gửi xác nhận
+                    </button>
+                  </div>
+                </form>
+
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                
+                <div id="success-message" class="alert alert-success rounded-4 mt-3" style="display: none;">
+                  <i class="fa-solid fa-check-circle me-2"></i>
+                  Cảm ơn bạn đã xác nhận! Chúng mình rất mong được gặp bạn.
+                </div>
               </div>
               
               <!-- Hidden elements required by JavaScript -->
