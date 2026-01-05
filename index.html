@@ -61,7 +61,7 @@
       name="apple-mobile-web-app-title"
       content="Thiệp Cưới Duy Toàn & Thị Thoan"
     />
-    <meta name="theme-color" content="#4A7EBB" />
+    <meta name="theme-color" content="#A0263A" />
     <meta name="color-scheme" content="dark light" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -81,57 +81,44 @@
     />
 
     <!-- Preconnect CDN -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link
-      rel="preconnect"
-      href="https://cdn.jsdelivr.net"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin="anonymous"
-    />
 
-    <!-- Preload Resources -->
+    <!-- Preload Critical Resources -->
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Dancing+Script:wght@400;700&display=swap"
       as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Dancing+Script:wght@400;700&display=swap"
+      />
+    </noscript>
+    <link
+      rel="preload"
+      href="./assets/images/placeholder.webp"
+      as="image"
+      type="image/webp"
     />
     <link
       rel="preload"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      integrity="sha256-2FMn2Zx6PuH5tdBQDRNwrOo60ts5wWPC9R8jK67b3t4="
-      crossorigin="anonymous"
+      href="./css/guest.css"
       as="style"
-    />
-    <link
-      rel="preload"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"
-      integrity="sha256-4rTIfo5GQTi/7UJqoyUJQKzxW8VN/YBH31+Cy+vTZj4="
-      crossorigin="anonymous"
-      as="style"
-    />
-    <link
-      rel="preload"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc="
-      crossorigin="anonymous"
-      as="script"
     />
 
     <!-- Font -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Dancing+Script:wght@400;700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
 
     <!-- Dependencies CSS -->
@@ -140,12 +127,16 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       integrity="sha256-2FMn2Zx6PuH5tdBQDRNwrOo60ts5wWPC9R8jK67b3t4="
       crossorigin="anonymous"
+      media="print"
+      onload="this.media='all'"
     />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"
       integrity="sha256-4rTIfo5GQTi/7UJqoyUJQKzxW8VN/YBH31+Cy+vTZj4="
       crossorigin="anonymous"
+      media="print"
+      onload="this.media='all'"
     />
     <link rel="stylesheet" href="./css/guest.css" />
 
@@ -156,7 +147,7 @@
       integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc="
       crossorigin="anonymous"
     ></script>
-    <script src="./dist/guest.js"></script>
+    <script defer src="./dist/guest.js"></script>
     <script>
       // Handle RSVP form submission
       document.addEventListener('DOMContentLoaded', function() {
@@ -235,7 +226,7 @@
 
             try {
               // Google Form submission URL
-              const formUrl = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSc0oSoJ-FjPVdPMjU-vlbByxAAmZNU_AMeDe3pjmvITpK1O6w/formResponse';
+              const formUrl = 'https://docs.google.com/forms/d/1SaCx66Rs2gV1TmnwNCkay5KM-9xCrwEHwA31ss2MVcs/formResponse';
               
               // Create form data
               const formData = new FormData();
@@ -244,6 +235,9 @@
               formData.append('entry.2606285', attendance);
               if (guestCount) {
                 formData.append('entry.1869605910', guestCount);
+              }
+              if (message) {
+                formData.append('entry.877086558', message);
               }
               
               // Submit to Google Form
@@ -316,6 +310,8 @@
                   src="./assets/images/placeholder.webp"
                   data-src="./assets/images/couple-1.jpg"
                   alt="Duy Toàn & Thị Thoan"
+                  loading="lazy"
+                  decoding="async"
                   class="bg-cover-home"
                   style="mask-image: none; opacity: 30%"
                 />
@@ -328,6 +324,8 @@
                   src="./assets/images/placeholder.webp"
                   data-src="./assets/images/couple-2.jpg"
                   alt="Duy Toàn & Thị Thoan"
+                  loading="lazy"
+                  decoding="async"
                   class="bg-cover-home"
                   style="mask-image: none; opacity: 30%"
                 />
@@ -340,6 +338,8 @@
                   src="./assets/images/placeholder.webp"
                   data-src="./assets/images/bg.webp"
                   alt="background"
+                  loading="lazy"
+                  decoding="async"
                   class="bg-cover-home"
                   style="mask-image: none; opacity: 30%"
                 />
@@ -375,6 +375,8 @@
               src="./assets/images/placeholder.webp"
               data-src="./assets/images/couple-1.jpg"
               alt="Duy Toàn & Thị Thoan"
+              loading="lazy"
+              decoding="async"
               class="position-absolute opacity-25 top-50 start-50 translate-middle bg-cover-home"
             />
 
@@ -393,6 +395,10 @@
                 src="./assets/images/placeholder.webp"
                 data-src="./assets/images/couple-1.jpg"
                 alt="Duy Toàn & Thị Thoan"
+                width="208"
+                height="208"
+                loading="lazy"
+                decoding="async"
                 onclick="undangan.guest.modal(this)"
                 class="img-center-crop rounded-circle border border-3 border-light shadow my-4 mx-auto cursor-pointer"
               />
@@ -404,12 +410,15 @@
                 Thứ Bảy, 07 Tháng 02 2026
               </p>
 
-              <button
+              <a
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=L%E1%BB%85%20Vu%20Quy%2C%20Ti%E1%BB%87c%20c%C6%B0%E1%BB%9Bi%20-%20Duy%20To%C3%A0n%20%26%20Th%E1%BB%8B%20Thoan&dates=20260207/20260207&details=10%3A00%20-%20L%E1%BB%85%20Vu%20Quy%20t%E1%BA%A1i%20L%C6%B0%C6%A1ng%20M%E1%BB%B9%20-%20V%E1%BB%A5%20B%E1%BA%A3n%20-%20Nam%20%C4%90%E1%BB%8Bnh%0A17%3A30%20-%20B%E1%BB%AFa%20Ti%E1%BB%87c%20Th%C3%A2n%20M%E1%BA%ADt%20t%E1%BA%A1i%20Nh%C3%A0%20h%C3%A0ng%20Thi%C3%AAn%20T%C3%A2n%20Palace&location=Nh%C3%A0%20h%C3%A0ng%20Thi%C3%AAn%20T%C3%A2n%20Palace%2C%20B%C3%A3i%20Ch%C3%A1y%20-%20H%E1%BA%A1%20Long%20-%20Qu%E1%BA%A3ng%20Ninh"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="btn btn-outline-auto btn-sm shadow rounded-pill px-3 py-1"
-                style="font-size: 0.825rem"
+                style="font-size: 0.825rem; text-decoration: none"
               >
                 <i class="fa-solid fa-calendar-check me-2"></i>Lưu ngày
-              </button>
+              </a>
 
               <div
                 class="d-flex justify-content-center align-items-center mt-4 mb-2"
@@ -483,6 +492,10 @@
                     src="./assets/images/placeholder.webp"
                     data-src="./assets/images/couple-1.jpg"
                     alt="Nguyễn Duy Toàn"
+                    width="208"
+                    height="208"
+                    loading="lazy"
+                    decoding="async"
                     onclick="undangan.guest.modal(this)"
                     class="img-center-crop rounded-circle border border-3 border-light shadow my-4 mx-auto cursor-pointer"
                   />
@@ -554,6 +567,10 @@
                     src="./assets/images/placeholder.webp"
                     data-src="./assets/images/couple-1.jpg"
                     alt="Phạm Thị Thoan"
+                    width="208"
+                    height="208"
+                    loading="lazy"
+                    decoding="async"
                     onclick="undangan.guest.modal(this)"
                     class="img-center-crop rounded-circle border border-3 border-light shadow my-4 mx-auto cursor-pointer"
                   />
@@ -1109,6 +1126,8 @@
                         src="./assets/images/placeholder.webp"
                         data-src="./assets/images/couple-1.jpg"
                         alt="Duy Toàn & Thị Thoan"
+                        loading="lazy"
+                        decoding="async"
                         class="d-block img-fluid cursor-pointer"
                         onclick="undangan.guest.modal(this)"
                       />
@@ -1118,6 +1137,8 @@
                         src="./assets/images/placeholder.webp"
                         data-src="./assets/images/couple-2.jpg"
                         alt="Duy Toàn & Thị Thoan"
+                        loading="lazy"
+                        decoding="async"
                         class="d-block img-fluid cursor-pointer"
                         onclick="undangan.guest.modal(this)"
                       />
@@ -1196,6 +1217,8 @@
                         src="./assets/images/placeholder.webp"
                         data-src="./assets/images/couple-2.jpg"
                         alt="Duy Toàn & Thị Thoan"
+                        loading="lazy"
+                        decoding="async"
                         class="d-block img-fluid cursor-pointer"
                         onclick="undangan.guest.modal(this)"
                       />
@@ -1406,14 +1429,6 @@
                 >
                   Xác nhận tham dự
                 </h2>
-
-                <div class="alert alert-info rounded-4 mb-4">
-                  <p style="font-size: 1.2rem">💐</p>
-                  <p class="m-0">
-                    Đừng quên gửi xác nhận tham dự để chúng mình có thể đón
-                    tiếp được chu đáo hơn
-                  </p>
-                </div>
 
                 <!-- RSVP Form -->
                 <form id="rsvp-form" class="needs-validation" novalidate>
@@ -1664,6 +1679,10 @@
             src="./assets/images/placeholder.webp"
             data-src="./assets/images/couple-1.jpg"
             alt="Duy Toàn & Thị Thoan"
+            width="208"
+            height="208"
+            loading="eager"
+            decoding="async"
             class="img-center-crop rounded-circle border border-3 border-light shadow mb-4 mx-auto"
           />
 

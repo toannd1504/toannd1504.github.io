@@ -28,12 +28,12 @@ html {
 }
 
 html[data-bs-theme="dark"] .btn-transparent {
-    background-color: rgba(var(--bs-dark-rgb), 0.5) !important;
+    background-color: rgba(107, 15, 40, 0.6) !important;
     backdrop-filter: blur(0.5rem);
 }
 
 html[data-bs-theme="light"] .btn-transparent {
-    background-color: rgba(var(--bs-light-rgb), 0.5) !important;
+    background-color: rgba(255, 252, 247, 0.6) !important;
     backdrop-filter: blur(0.5rem);
 }
 
@@ -46,29 +46,29 @@ html[data-bs-theme="light"] .btn-transparent {
 }
 
 html[data-bs-theme="light"] .color-theme-svg {
-    color: rgb(255, 255, 255);
-    background-color: var(--bs-light);
+    color: rgb(160, 38, 58);
+    background-color: var(--cream-light);
 }
 
 html[data-bs-theme="dark"] .color-theme-svg {
-    color: rgb(0, 0, 0);
-    background-color: var(--bs-dark);
+    color: rgb(201, 74, 95);
+    background-color: #3D0A1A;
 }
 
 html[data-bs-theme="light"] .bg-light-dark {
-    background-color: rgb(var(--bs-light-rgb));
+    background-color: rgb(255, 252, 247);
 }
 
 html[data-bs-theme="dark"] .bg-light-dark {
-    background-color: rgb(var(--bs-dark-rgb));
+    background-color: rgb(61, 10, 26);
 }
 
 html[data-bs-theme="light"] .bg-white-black {
-    background-color: rgb(var(--bs-white-rgb));
+    background-color: rgb(255, 255, 255);
 }
 
 html[data-bs-theme="dark"] .bg-white-black {
-    background-color: rgb(var(--bs-black-rgb));
+    background-color: rgb(45, 8, 20);
 }
 
 .bg-cover-home {
