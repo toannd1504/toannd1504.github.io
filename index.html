@@ -107,11 +107,7 @@
       as="image"
       type="image/webp"
     />
-    <link
-      rel="preload"
-      href="./css/guest.css"
-      as="style"
-    />
+    <link rel="preload" href="./css/guest.css" as="style" />
 
     <!-- Font -->
     <link
@@ -150,115 +146,134 @@
     <script defer src="./dist/guest.js"></script>
     <script>
       // Handle RSVP form submission
-      document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('rsvp-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const successMessage = document.getElementById('success-message');
-        const guestCountSection = document.getElementById('guest-count-section');
-        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
-        const countOtherRadio = document.getElementById('count-other');
-        const countOtherText = document.getElementById('count-other-text');
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("rsvp-form");
+        const submitBtn = document.getElementById("submit-btn");
+        const successMessage = document.getElementById("success-message");
+        const guestCountSection = document.getElementById(
+          "guest-count-section"
+        );
+        const attendanceRadios = document.querySelectorAll(
+          'input[name="attendance"]'
+        );
+        const countOtherRadio = document.getElementById("count-other");
+        const countOtherText = document.getElementById("count-other-text");
 
         // Show/hide guest count based on attendance selection
-        attendanceRadios.forEach(radio => {
-          radio.addEventListener('change', function() {
-            if (this.value === 'Có, mình sẽ tham dự') {
-              guestCountSection.style.display = 'block';
-              document.querySelectorAll('input[name="guest-count"]').forEach(input => {
-                input.required = true;
-              });
+        attendanceRadios.forEach((radio) => {
+          radio.addEventListener("change", function () {
+            if (this.value === "Có, mình sẽ tham dự") {
+              guestCountSection.style.display = "block";
+              document
+                .querySelectorAll('input[name="guest-count"]')
+                .forEach((input) => {
+                  input.required = true;
+                });
             } else {
-              guestCountSection.style.display = 'none';
-              document.querySelectorAll('input[name="guest-count"]').forEach(input => {
-                input.required = false;
-                input.checked = false;
-              });
+              guestCountSection.style.display = "none";
+              document
+                .querySelectorAll('input[name="guest-count"]')
+                .forEach((input) => {
+                  input.required = false;
+                  input.checked = false;
+                });
             }
           });
         });
 
         // Enable/disable other text input
-        countOtherRadio.addEventListener('change', function() {
+        countOtherRadio.addEventListener("change", function () {
           countOtherText.disabled = !this.checked;
           if (this.checked) {
             countOtherText.focus();
           }
         });
 
-        document.querySelectorAll('input[name="guest-count"]:not(#count-other)').forEach(radio => {
-          radio.addEventListener('change', function() {
-            countOtherText.disabled = true;
-            countOtherText.value = '';
+        document
+          .querySelectorAll('input[name="guest-count"]:not(#count-other)')
+          .forEach((radio) => {
+            radio.addEventListener("change", function () {
+              countOtherText.disabled = true;
+              countOtherText.value = "";
+            });
           });
-        });
 
         if (form) {
-          form.addEventListener('submit', async function(e) {
+          form.addEventListener("submit", async function (e) {
             e.preventDefault();
-            
+
             // Validate form
             if (!form.checkValidity()) {
               e.stopPropagation();
-              form.classList.add('was-validated');
+              form.classList.add("was-validated");
               return;
             }
 
             // Get form values
-            const name = document.getElementById('guest-name').value;
-            const phone = document.getElementById('guest-phone').value;
-            const attendance = document.querySelector('input[name="attendance"]:checked')?.value || '';
-            
-            let guestCount = '';
-            const selectedCount = document.querySelector('input[name="guest-count"]:checked');
+            const name = document.getElementById("guest-name").value;
+            const phone = document.getElementById("guest-phone").value;
+            const attendance =
+              document.querySelector('input[name="attendance"]:checked')
+                ?.value || "";
+
+            let guestCount = "";
+            const selectedCount = document.querySelector(
+              'input[name="guest-count"]:checked'
+            );
             if (selectedCount) {
-              if (selectedCount.id === 'count-other') {
-                guestCount = countOtherText.value || '';
+              if (selectedCount.id === "count-other") {
+                guestCount = countOtherText.value || "";
               } else {
                 guestCount = selectedCount.value;
               }
             }
 
-            const message = document.getElementById('guest-message').value;
+            const message = document.getElementById("guest-message").value;
 
             // Disable submit button
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>Đang gửi...';
+            submitBtn.innerHTML =
+              '<i class="fa-solid fa-spinner fa-spin me-2"></i>Đang gửi...';
 
             try {
               // Google Form submission URL
-              const formUrl = 'https://docs.google.com/forms/d/1SaCx66Rs2gV1TmnwNCkay5KM-9xCrwEHwA31ss2MVcs/formResponse';
-              
+              const formUrl =
+                "https://docs.google.com/forms/d/1SaCx66Rs2gV1TmnwNCkay5KM-9xCrwEHwA31ss2MVcs/formResponse";
+
               // Create form data
               const formData = new FormData();
-              formData.append('entry.511332419', name);
-              formData.append('entry.931629939', phone);
-              formData.append('entry.2606285', attendance);
+              formData.append("entry.511332419", name);
+              formData.append("entry.931629939", phone);
+              formData.append("entry.2606285", attendance);
               if (guestCount) {
-                formData.append('entry.1869605910', guestCount);
+                formData.append("entry.1869605910", guestCount);
               }
               if (message) {
-                formData.append('entry.877086558', message);
+                formData.append("entry.877086558", message);
               }
-              
+
               // Submit to Google Form
               await fetch(formUrl, {
-                method: 'POST',
+                method: "POST",
                 body: formData,
-                mode: 'no-cors'
+                mode: "no-cors",
               });
 
               // Show success message
-              form.style.display = 'none';
-              successMessage.style.display = 'block';
-              
+              form.style.display = "none";
+              successMessage.style.display = "block";
+
               // Scroll to success message
-              successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              
+              successMessage.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
             } catch (error) {
-              console.error('Error submitting form:', error);
-              alert('Có lỗi xảy ra khi gửi form. Vui lòng thử lại!');
+              console.error("Error submitting form:", error);
+              alert("Có lỗi xảy ra khi gửi form. Vui lòng thử lại!");
               submitBtn.disabled = false;
-              submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane me-2"></i>Gửi xác nhận';
+              submitBtn.innerHTML =
+                '<i class="fa-solid fa-paper-plane me-2"></i>Gửi xác nhận';
             }
           });
         }
@@ -349,7 +364,9 @@
 
           <div class="text-center p-4 bg-overlay-auto rounded-5">
             <h2 class="font-esthetic mb-4" style="font-size: 2rem">
-              Duy Toàn &amp; Thị Thoan
+              Duy Toàn
+              <span style="color: #a0263a; font-size: 2.5rem">囍</span> Thị
+              Thoan
             </h2>
             <p class="m-0" style="font-size: 1rem">Thứ Bảy, 07 Tháng 02 2026</p>
           </div>
@@ -404,7 +421,9 @@
               />
 
               <h2 class="font-esthetic my-4" style="font-size: 2.25rem">
-                Duy Toàn &amp; Thị Thoan
+                Duy Toàn
+                <span style="color: #a0263a; font-size: 2.75rem">囍</span> Thị
+                Thoan
               </h2>
               <p class="my-2" style="font-size: 1.25rem">
                 Thứ Bảy, 07 Tháng 02 2026
@@ -509,9 +528,7 @@
                   <p class="mb-0" style="font-size: 0.95rem">
                     Ông: Nguyễn Duy Nhất
                   </p>
-                  <p class="mb-0" style="font-size: 0.95rem">
-                    Bà: Lê Thị Ngợi
-                  </p>
+                  <p class="mb-0" style="font-size: 0.95rem">Bà: Lê Thị Ngợi</p>
                   <p
                     class="mb-0"
                     style="font-size: 0.85rem; font-style: italic"
@@ -926,7 +943,7 @@
                   <h2 class="font-esthetic m-0 py-2" style="font-size: 2rem">
                     Lễ Vu Quy
                   </h2>
-                  <p style="font-size: 0.95rem">Vào 08:00, Thứ Bảy</p>
+                  <p style="font-size: 0.95rem">Vào 10:00, Thứ Bảy</p>
                   <p class="mb-1" style="font-size: 1.5rem; font-weight: bold">
                     07
                   </p>
@@ -937,7 +954,9 @@
                   <p class="mt-3 mb-1 fw-bold" style="font-size: 1rem">
                     Tư gia nhà gái
                   </p>
-                  <p class="mb-0" style="font-size: 0.9rem">Lương Mỹ - Vụ Bản - Nam Định</p>
+                  <p class="mb-0" style="font-size: 0.9rem">
+                    Lương Mỹ - Vụ Bản - Nam Định
+                  </p>
                 </div>
 
                 <div class="py-2" data-aos="fade-left" data-aos-duration="1500">
@@ -968,24 +987,30 @@
                 <div
                   class="d-flex justify-content-center align-items-start mb-3"
                 >
-                  <div class="text-center mx-3" style="flex: 1; max-width: 150px">
+                  <div
+                    class="text-center mx-3"
+                    style="flex: 1; max-width: 150px"
+                  >
                     <div class="mb-2" style="height: 2rem">
-                      <i
-                        class="fa-solid fa-heart"
-                        style="font-size: 2rem"
-                      ></i>
+                      <i class="fa-solid fa-heart" style="font-size: 2rem"></i>
                     </div>
                     <p class="mb-1 fw-bold" style="font-size: 1.1rem">08:00</p>
                     <p class="mb-0" style="font-size: 0.9rem">Lễ thành hôn</p>
                   </div>
-                  <div class="text-center mx-3" style="flex: 1; max-width: 150px">
+                  <div
+                    class="text-center mx-3"
+                    style="flex: 1; max-width: 150px"
+                  >
                     <div class="mb-2" style="height: 2rem">
                       <i class="fa-solid fa-camera" style="font-size: 2rem"></i>
                     </div>
                     <p class="mb-1 fw-bold" style="font-size: 1.1rem">10:30</p>
                     <p class="mb-0" style="font-size: 0.9rem">Checkin</p>
                   </div>
-                  <div class="text-center mx-3" style="flex: 1; max-width: 150px">
+                  <div
+                    class="text-center mx-3"
+                    style="flex: 1; max-width: 150px"
+                  >
                     <div class="mb-2" style="height: 2rem">
                       <i
                         class="fa-solid fa-champagne-glasses"
@@ -1073,7 +1098,8 @@
                   Đồ</a
                 >
                 <small class="d-block my-1"
-                  >Nhà hàng Thiên Tân Palace, Bãi Cháy - Hạ Long - Quảng Ninh</small
+                  >Nhà hàng Thiên Tân Palace, Bãi Cháy - Hạ Long - Quảng
+                  Ninh</small
                 >
               </div>
             </div>
@@ -1347,7 +1373,7 @@
                       <i class="fa-solid fa-copy"></i>
                     </button>
                   </div>
-                  
+
                   <!-- QR Code -->
                   <div class="text-center mt-3">
                     <img
@@ -1357,7 +1383,10 @@
                       style="max-width: 200px"
                       onclick="undangan.guest.modal(this)"
                     />
-                    <p class="mt-2 mb-0" style="font-size: 0.75rem; font-style: italic">
+                    <p
+                      class="mt-2 mb-0"
+                      style="font-size: 0.75rem; font-style: italic"
+                    >
                       Quét mã QR để chuyển khoản
                     </p>
                   </div>
@@ -1382,7 +1411,8 @@
                 <div class="collapse" id="collapseTf2">
                   <hr class="my-2 py-1" />
                   <p class="m-0" style="font-size: 0.9rem">
-                    <i class="fa-solid fa-building-columns me-1"></i>Ngân hàng Quân đội Việt Nam (MB Bank)
+                    <i class="fa-solid fa-building-columns me-1"></i>Ngân hàng
+                    Quân đội Việt Nam (MB Bank)
                   </p>
                   <div
                     class="d-flex justify-content-between align-items-center mt-2"
@@ -1400,7 +1430,7 @@
                       <i class="fa-solid fa-copy"></i>
                     </button>
                   </div>
-                  
+
                   <!-- QR Code -->
                   <div class="text-center mt-3">
                     <img
@@ -1410,7 +1440,10 @@
                       style="max-width: 200px"
                       onclick="undangan.guest.modal(this)"
                     />
-                    <p class="mt-2 mb-0" style="font-size: 0.75rem; font-style: italic">
+                    <p
+                      class="mt-2 mb-0"
+                      style="font-size: 0.75rem; font-style: italic"
+                    >
                       Quét mã QR để chuyển khoản
                     </p>
                   </div>
@@ -1444,9 +1477,7 @@
                       placeholder="Nhập họ và tên của bạn"
                       required
                     />
-                    <div class="invalid-feedback">
-                      Vui lòng nhập họ và tên
-                    </div>
+                    <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
                   </div>
 
                   <div class="mb-3">
@@ -1468,7 +1499,8 @@
 
                   <div class="mb-3">
                     <label class="form-label">
-                      Bạn sẽ tham dự với chúng mình chứ? <span class="text-danger">*</span>
+                      Bạn sẽ tham dự với chúng mình chứ?
+                      <span class="text-danger">*</span>
                     </label>
                     <div class="form-check">
                       <input
@@ -1495,7 +1527,11 @@
                         Xin lỗi, mình không tham dự được
                       </label>
                     </div>
-                    <div class="invalid-feedback d-block" id="attendance-error" style="display: none !important;">
+                    <div
+                      class="invalid-feedback d-block"
+                      id="attendance-error"
+                      style="display: none !important"
+                    >
                       Vui lòng chọn một lựa chọn
                     </div>
                   </div>
@@ -1505,31 +1541,90 @@
                       Số người tham dự cùng <span class="text-danger">*</span>
                     </label>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="guest-count" id="count-1" value="1 người" required />
-                      <label class="form-check-label" for="count-1">1 người</label>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="guest-count"
+                        id="count-1"
+                        value="1 người"
+                        required
+                      />
+                      <label class="form-check-label" for="count-1"
+                        >1 người</label
+                      >
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="guest-count" id="count-2" value="2 người" />
-                      <label class="form-check-label" for="count-2">2 người</label>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="guest-count"
+                        id="count-2"
+                        value="2 người"
+                      />
+                      <label class="form-check-label" for="count-2"
+                        >2 người</label
+                      >
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="guest-count" id="count-3" value="3 người" />
-                      <label class="form-check-label" for="count-3">3 người</label>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="guest-count"
+                        id="count-3"
+                        value="3 người"
+                      />
+                      <label class="form-check-label" for="count-3"
+                        >3 người</label
+                      >
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="guest-count" id="count-4" value="4 người" />
-                      <label class="form-check-label" for="count-4">4 người</label>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="guest-count"
+                        id="count-4"
+                        value="4 người"
+                      />
+                      <label class="form-check-label" for="count-4"
+                        >4 người</label
+                      >
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="guest-count" id="count-5" value="5 người" />
-                      <label class="form-check-label" for="count-5">5 người</label>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="guest-count"
+                        id="count-5"
+                        value="5 người"
+                      />
+                      <label class="form-check-label" for="count-5"
+                        >5 người</label
+                      >
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="guest-count" id="count-other" value="__other_option__" />
-                      <label class="form-check-label" for="count-other">Other:</label>
-                      <input type="text" class="form-control form-control-sm mt-1 rounded-3" id="count-other-text" placeholder="Nhập số người khác" disabled />
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="guest-count"
+                        id="count-other"
+                        value="__other_option__"
+                      />
+                      <label class="form-check-label" for="count-other"
+                        >Other:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm mt-1 rounded-3"
+                        id="count-other-text"
+                        placeholder="Nhập số người khác"
+                        disabled
+                      />
                     </div>
-                    <div class="invalid-feedback d-block" id="guest-count-error" style="display: none !important;">
+                    <div
+                      class="invalid-feedback d-block"
+                      id="guest-count-error"
+                      style="display: none !important"
+                    >
                       Vui lòng chọn số người tham dự
                     </div>
                   </div>
@@ -1548,7 +1643,11 @@
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 py-3" id="submit-btn">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg rounded-pill px-5 py-3"
+                      id="submit-btn"
+                    >
                       <i class="fa-solid fa-paper-plane me-2"></i>
                       Gửi xác nhận
                     </button>
@@ -1556,17 +1655,26 @@
                 </form>
 
                 <!-- Success Message -->
-                <div id="success-message" class="text-center py-4" style="display: none;">
+                <div
+                  id="success-message"
+                  class="text-center py-4"
+                  style="display: none"
+                >
                   <div class="alert alert-success rounded-4">
-                    <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #28a745;"></i>
+                    <i
+                      class="fa-solid fa-circle-check"
+                      style="font-size: 3rem; color: #28a745"
+                    ></i>
                     <h4 class="mt-3 mb-2">Cảm ơn bạn!</h4>
-                    <p class="mb-0">Chúng mình đã nhận được xác nhận của bạn 💕</p>
+                    <p class="mb-0">
+                      Chúng mình đã nhận được xác nhận của bạn 💕
+                    </p>
                   </div>
                 </div>
               </div>
-              
+
               <!-- Hidden elements required by JavaScript -->
-              <div style="display: none;">
+              <div style="display: none">
                 <div id="comments" data-loading="false"></div>
                 <div id="pagination"></div>
                 <div id="comment-form-default"></div>
@@ -1687,7 +1795,8 @@
           />
 
           <h2 class="font-esthetic mb-4" style="font-size: 2.25rem">
-            Duy Toàn &amp; Thị Thoan
+            Duy Toàn
+            <span style="color: #a0263a; font-size: 2.5rem">囍</span> Thị Thoan
           </h2>
           <div id="guest-name" data-message="Kính mời"></div>
 
@@ -1769,28 +1878,31 @@
 
     <!-- Form Submit Handler Script -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         // Ensure comment section is visible and scrollable
-        document.addEventListener('undangan.open', function() {
-          console.log('Invitation opened - RSVP section is now accessible');
-          
+        document.addEventListener("undangan.open", function () {
+          console.log("Invitation opened - RSVP section is now accessible");
+
           // Make sure comment section is visible
-          const commentSection = document.getElementById('comment');
+          const commentSection = document.getElementById("comment");
           if (commentSection) {
-            commentSection.style.display = 'block';
-            commentSection.style.visibility = 'visible';
-            commentSection.style.opacity = '1';
+            commentSection.style.display = "block";
+            commentSection.style.visibility = "visible";
+            commentSection.style.opacity = "1";
           }
         });
-        
+
         // Handle menu click to scroll to RSVP section
         const commentLink = document.querySelector('a[href="#comment"]');
         if (commentLink) {
-          commentLink.addEventListener('click', function(e) {
+          commentLink.addEventListener("click", function (e) {
             e.preventDefault();
-            const commentSection = document.getElementById('comment');
+            const commentSection = document.getElementById("comment");
             if (commentSection) {
-              commentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              commentSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
             }
           });
         }
