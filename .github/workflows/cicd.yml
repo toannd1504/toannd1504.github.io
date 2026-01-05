@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "4.x"
+  workflow_dispatch:
 
 jobs:
   analyze-code:
