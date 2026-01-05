@@ -306,9 +306,16 @@ export const guest = (() => {
             document.getElementById('information')?.remove();
         }
 
-        // Skip loading and show welcome screen immediately
-        document.getElementById('loading')?.remove();
-        document.getElementById('welcome').style.opacity = '1';
+        // Remove loading screen and show welcome screen
+        const loadingEl = document.getElementById('loading');
+        if (loadingEl) {
+            loadingEl.remove();
+        }
+        
+        const welcomeEl = document.getElementById('welcome');
+        if (welcomeEl) {
+            welcomeEl.style.opacity = '1';
+        }
     };
 
     /**
@@ -331,7 +338,12 @@ export const guest = (() => {
         const params = new URLSearchParams(window.location.search);
 
         window.addEventListener('resize', util.debounce(slide));
-        document.addEventListener('undangan.progress.done', () => booting());
+        
+        // Skip progress loading and go directly to booting
+        util.timeOut(() => {
+            booting();
+        }, 100);
+        
         document.addEventListener('hide.bs.modal', () => document.activeElement?.blur());
         document.getElementById('button-modal-download').addEventListener('click', (e) => {
             img.download(e.currentTarget.getAttribute('data-src'));
