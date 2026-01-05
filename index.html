@@ -210,15 +210,15 @@
             }
 
             // Get form values
-            const name = document.getElementById("guest-name").value;
-            const phone = document.getElementById("guest-phone").value;
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
             const attendance =
-              document.querySelector('input[name="attendance"]:checked')
+              document.querySelector('input[name="attended"]:checked')
                 ?.value || "";
 
             let guestCount = "";
             const selectedCount = document.querySelector(
-              'input[name="guest-count"]:checked'
+              'input[name="nop"]:checked'
             );
             if (selectedCount) {
               if (selectedCount.id === "count-other") {
@@ -228,7 +228,7 @@
               }
             }
 
-            const message = document.getElementById("guest-message").value;
+            const message = document.getElementById("message").value;
 
             // Disable submit button
             submitBtn.disabled = true;
@@ -236,27 +236,21 @@
               '<i class="fa-solid fa-spinner fa-spin me-2"></i>Đang gửi...';
 
             try {
-              // Google Form submission URL
-              const formUrl =
-                "https://docs.google.com/forms/d/1SaCx66Rs2gV1TmnwNCkay5KM-9xCrwEHwA31ss2MVcs/formResponse";
+              // Create data object
+              const data = {
+                name: name,
+                phone: phone,
+                nop: guestCount,
+                attended: attendance,
+                message: message
+              };
 
-              // Create form data
-              const formData = new FormData();
-              formData.append("entry.511332419", name);
-              formData.append("entry.931629939", phone);
-              formData.append("entry.2606285", attendance);
-              if (guestCount) {
-                formData.append("entry.1869605910", guestCount);
-              }
-              if (message) {
-                formData.append("entry.877086558", message);
-              }
+              debugger;
 
-              // Submit to Google Form
-              await fetch(formUrl, {
+              // Submit to Google Apps Script
+              await fetch("https://script.google.com/macros/s/AKfycbxKAgi6VAWCgH_pwIzFpqRup6c7jJNWOvzth2GrFejmF_ychzncXCLqIkakikVJ4_A/exec", {
                 method: "POST",
-                body: formData,
-                mode: "no-cors",
+                body: JSON.stringify(data)
               });
 
               // Show success message
@@ -1478,7 +1472,7 @@
                       type="text"
                       class="form-control rounded-3"
                       id="guest-name"
-                      name="guest-name"
+                      name="name"
                       placeholder="Nhập họ và tên của bạn"
                       required
                     />
@@ -1493,7 +1487,7 @@
                       type="tel"
                       class="form-control rounded-3"
                       id="guest-phone"
-                      name="guest-phone"
+                      name="phone"
                       placeholder="Nhập số điện thoại"
                       required
                     />
@@ -1511,9 +1505,10 @@
                       <input
                         class="form-check-input"
                         type="radio"
-                        name="attendance"
+                        name="attended"
                         id="attend-yes"
-                        value="Có, mình sẽ tham dự"
+                        value="true"
+          
                         required
                       />
                       <label class="form-check-label" for="attend-yes">
@@ -1524,9 +1519,9 @@
                       <input
                         class="form-check-input"
                         type="radio"
-                        name="attendance"
+                        name="attended"
                         id="attend-no"
-                        value="Xin lỗi, mình không tham dự được"
+                        value="false"
                       />
                       <label class="form-check-label" for="attend-no">
                         Xin lỗi, mình không tham dự được
@@ -1549,9 +1544,9 @@
                       <input
                         class="form-check-input"
                         type="radio"
-                        name="guest-count"
+                        name="nop"
                         id="count-1"
-                        value="1 người"
+                        value="1"
                         required
                       />
                       <label class="form-check-label" for="count-1"
@@ -1562,9 +1557,9 @@
                       <input
                         class="form-check-input"
                         type="radio"
-                        name="guest-count"
+                        name="nop"
                         id="count-2"
-                        value="2 người"
+                        value="2"
                       />
                       <label class="form-check-label" for="count-2"
                         >2 người</label
@@ -1574,9 +1569,9 @@
                       <input
                         class="form-check-input"
                         type="radio"
-                        name="guest-count"
+                        name="nop"
                         id="count-3"
-                        value="3 người"
+                        value="3"
                       />
                       <label class="form-check-label" for="count-3"
                         >3 người</label
@@ -1586,9 +1581,9 @@
                       <input
                         class="form-check-input"
                         type="radio"
-                        name="guest-count"
+                        name="nop"
                         id="count-4"
-                        value="4 người"
+                        value="4"
                       />
                       <label class="form-check-label" for="count-4"
                         >4 người</label
@@ -1598,9 +1593,9 @@
                       <input
                         class="form-check-input"
                         type="radio"
-                        name="guest-count"
+                        name="nop"
                         id="count-5"
-                        value="5 người"
+                        value="5"
                       />
                       <label class="form-check-label" for="count-5"
                         >5 người</label
@@ -1622,6 +1617,7 @@
                         class="form-control form-control-sm mt-1 rounded-3"
                         id="count-other-text"
                         placeholder="Nhập số người khác"
+                        name="nop"
                         disabled
                       />
                     </div>
@@ -1641,7 +1637,7 @@
                     <textarea
                       class="form-control rounded-3"
                       id="guest-message"
-                      name="guest-message"
+                      name="message"
                       rows="3"
                       placeholder="Gửi lời chúc mừng của bạn..."
                     ></textarea>
