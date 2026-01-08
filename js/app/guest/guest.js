@@ -11,6 +11,7 @@ import { storage } from '../../common/storage.js';
 import { session } from '../../common/session.js';
 import { offline } from '../../common/offline.js';
 import { comment } from '../components/comment.js';
+import { wishes } from '../components/wishes.js';
 import * as confetti from '../../libs/confetti.js';
 import { pool } from '../../connection/request.js';
 
@@ -325,6 +326,7 @@ export const guest = (() => {
         lang.init();
         offline.init();
         comment.init();
+        wishes.init();
         progress.init();
 
         config = storage('config');

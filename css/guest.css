@@ -113,3 +113,73 @@ svg {
 .no-gap-bottom {
     margin-bottom: -0.75rem !important;
 }
+/* Wishes Section Styles */
+.wish-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wish-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(160, 38, 58, 0.15) !important;
+}
+
+.avatar-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a0263a 0%, #8B4049 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+html[data-bs-theme="light"] .wish-card {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(160, 38, 58, 0.1);
+}
+
+html[data-bs-theme="dark"] .wish-card {
+    background-color: rgb(45, 8, 20);
+    border: 1px solid rgba(201, 74, 95, 0.2);
+}
+
+/* Pagination Styles */
+.pagination .page-link {
+    color: #a0263a;
+    border-color: rgba(160, 38, 58, 0.2);
+    transition: all 0.2s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #a0263a;
+    color: white;
+    border-color: #a0263a;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #a0263a;
+    border-color: #a0263a;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: rgba(160, 38, 58, 0.4);
+}
+
+html[data-bs-theme="dark"] .pagination .page-link {
+    background-color: rgb(45, 8, 20);
+    color: #C94A5F;
+    border-color: rgba(201, 74, 95, 0.3);
+}
+
+html[data-bs-theme="dark"] .pagination .page-link:hover {
+    background-color: #8B4049;
+    color: white;
+    border-color: #8B4049;
+}
+
+html[data-bs-theme="dark"] .pagination .page-item.active .page-link {
+    background-color: #8B4049;
+    border-color: #8B4049;
+}
