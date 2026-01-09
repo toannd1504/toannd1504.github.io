@@ -101,12 +101,16 @@ export const wishes = (() => {
             return;
         }
         
-        container.innerHTML = pageWishes.map(wish => `
+        const weddingIcons = ['💕', '🎉', '🎊', '💐', '🌸', '🥂', '🎁', '❤️', '💝', '🌹', '💒', '🎈', '🎀', '✨', '🌺', '🦋', '🕊️', '💞', '🌷', '🎵'];
+        
+        container.innerHTML = pageWishes.map((wish, index) => {
+            const randomIcon = weddingIcons[index % weddingIcons.length];
+            return `
             <div class="wish-card mb-3 p-3 bg-theme-auto rounded-4 shadow-sm" data-aos="fade-up">
                 <div class="d-flex align-items-start">
                     <div class="flex-shrink-0 me-3">
                         <div class="avatar-circle">
-                            <i class="fa-solid fa-user"></i>
+                            <span style="font-size: 1.5rem;">${randomIcon}</span>
                         </div>
                     </div>
                     <div class="flex-grow-1">
@@ -115,7 +119,7 @@ export const wishes = (() => {
                     </div>
                 </div>
             </div>
-        `).join('');
+        `}).join('');
         
         renderPagination();
     };
