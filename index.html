@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-bs-theme="auto">
+<html lang="id" data-bs-theme="auto" prefix="og: https://ogp.me/ns#">
   <head>
     <!-- Common Tag -->
     <meta charset="utf-8" />
@@ -11,7 +11,10 @@
     <meta name="language" content="vi" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="googlebot" content="index, follow, max-image-preview:large" />
-    <meta name="title" content="Thiệp Cưới Duy Toàn & Phạm Thoan - 07.02.2026" />
+    <meta
+      name="title"
+      content="Thiệp Cưới Duy Toàn & Phạm Thoan - 07.02.2026"
+    />
     <meta
       name="description"
       content="Trân trọng kính mời Quý khách dự Lễ Cưới của Duy Toàn và Phạm Thoan"
@@ -20,7 +23,35 @@
       name="keywords"
       content="thiệp cưới, lễ cưới, thiệp mời, wedding invitation, Duy Toàn, Phạm Thoan, lễ cưới"
     />
+    <!-- Open Graph (Facebook / Messenger) -->
     <meta
+      property="og:title"
+      content="Thiệp Cưới Duy Toàn & Phạm Thoan - 07.02.2026"
+    />
+    <meta
+      property="og:description"
+      content="Trân trọng kính mời Quý khách dự Lễ Cưới của Duy Toàn và Phạm Thoan"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://toannd1504.github.io/" />
+
+    <meta
+      property="og:image"
+      content="https://toannd1504.github.io/assets/images/couple-1.jpg"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://toannd1504.github.io/assets/images/couple-1.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Thiệp Cưới Duy Toàn & Phạm Thoan" />
+
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:site_name" content="Thiệp Cưới Duy Toàn & Phạm Thoan" />
+
+    <!-- <meta
       property="og:title"
       content="Thiệp Cưới Duy Toàn & Phạm Thoan - 07.02.2026"
     />
@@ -53,7 +84,7 @@
     <meta
       property="og:site_name"
       content="Thiệp Cưới Duy Toàn & Phạm Thoan - 07.02.2026"
-    />
+    /> -->
 
     <!-- Appearance -->
     <meta name="mobile-web-app-capable" content="yes" />
@@ -122,7 +153,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./css/guest.css" />
-    
+
     <!-- Non-Critical CSS - Lazy Load -->
     <link
       rel="stylesheet"
@@ -159,7 +190,9 @@
         const eventCheckboxes = document.querySelectorAll(
           'input[name="events"]'
         );
-        const eventSelectionError = document.getElementById("event-selection-error");
+        const eventSelectionError = document.getElementById(
+          "event-selection-error"
+        );
         const countOtherRadio = document.getElementById("count-other");
         const countOtherText = document.getElementById("count-other-text");
         const numberRadios = document.querySelectorAll(
@@ -169,7 +202,9 @@
         // Hide error message when user selects an event
         eventCheckboxes.forEach((checkbox) => {
           checkbox.addEventListener("change", function () {
-            const checkedCount = document.querySelectorAll('input[name="events"]:checked').length;
+            const checkedCount = document.querySelectorAll(
+              'input[name="events"]:checked'
+            ).length;
             if (checkedCount > 0) {
               eventSelectionError.classList.remove("d-block");
               eventSelectionError.classList.add("d-none");
@@ -258,17 +293,22 @@
             const name = document.getElementById("guest-name").value;
             const phone = document.getElementById("guest-phone").value;
             const attendance =
-              document.querySelector('input[name="attended"]:checked')
-                ?.value || "false";
-            
+              document.querySelector('input[name="attended"]:checked')?.value ||
+              "false";
+
             // Check event selection if attending
             let selectedEvents = [];
             if (attendance === "true") {
-              const checkedEvents = document.querySelectorAll('input[name="events"]:checked');
+              const checkedEvents = document.querySelectorAll(
+                'input[name="events"]:checked'
+              );
               if (checkedEvents.length === 0) {
                 eventSelectionError.classList.remove("d-none");
                 eventSelectionError.classList.add("d-block");
-                eventSelectionSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                eventSelectionSection.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
                 return;
               }
               eventSelectionError.classList.remove("d-block");
@@ -307,17 +347,20 @@
                 engagement: selectedEvents.includes("engagement"),
                 wedding: selectedEvents.includes("wedding"),
                 events: selectedEvents.join(", "),
-                message: message
+                message: message,
               };
 
               console.log("Submitting data:", data);
 
               // Submit to Google Apps Script
-              await fetch("https://script.google.com/macros/s/AKfycbx69jTMOjqE4U0X1pC78lXwdAaAlko2BSq6s8fxTNy9F036SuEx5GCKRUGPzC6_ZrE/exec", {
-                method: "POST",
-                body: JSON.stringify(data),
-                mode: "no-cors",
-              });
+              await fetch(
+                "https://script.google.com/macros/s/AKfycbx69jTMOjqE4U0X1pC78lXwdAaAlko2BSq6s8fxTNy9F036SuEx5GCKRUGPzC6_ZrE/exec",
+                {
+                  method: "POST",
+                  body: JSON.stringify(data),
+                  mode: "no-cors",
+                }
+              );
 
               // Show success message
               form.style.display = "none";
@@ -602,7 +645,10 @@
                 </div>
               </div>
 
-              <h2 class="font-esthetic mt-4" style="font-size: 4.5rem; color: #a0263a">
+              <h2
+                class="font-esthetic mt-4"
+                style="font-size: 4.5rem; color: #a0263a"
+              >
                 囍
               </h2>
 
@@ -825,11 +871,12 @@
                         <p class="fw-bold mb-2">☕ Toàn và Thoan</p>
                         <p class="small mb-0">
                           Toàn và Thoan gặp nhau lần đầu tiên vào năm 2025 tại
-                          một góc phố nhỏ ở Hà Nội, nơi cả hai thường đến để trò 
-                          chuyện và thưởng thức đồ uống ngọt ngào dưới ánh đèn vàng ấm áp dưới chân cầu Long Biên. Cả hai nhanh chóng nhận ra
-                          sự đồng điệu trong sở thích và quan điểm sống, từ đó
-                          bắt đầu một hành trình tìm hiểu nhau đầy thú vị và
-                          ngọt ngào.
+                          một góc phố nhỏ ở Hà Nội, nơi cả hai thường đến để trò
+                          chuyện và thưởng thức đồ uống ngọt ngào dưới ánh đèn
+                          vàng ấm áp dưới chân cầu Long Biên. Cả hai nhanh chóng
+                          nhận ra sự đồng điệu trong sở thích và quan điểm sống,
+                          từ đó bắt đầu một hành trình tìm hiểu nhau đầy thú vị
+                          và ngọt ngào.
                         </p>
                       </div>
                     </div>
@@ -958,20 +1005,67 @@
 
               <!-- Calendar -->
               <div class="my-4" data-aos="fade-up" data-aos-duration="1000">
-                <div class="card shadow-lg mx-auto" style="max-width: 400px; border-radius: 20px; overflow: hidden; border: 2px solid #e0e0e0;">
-                  <div class="card-header text-center text-white py-3" style="background: linear-gradient(135deg, #8B4049 0%, #A0263A 100%); font-size: 2rem; font-weight: bold;">
+                <div
+                  class="card shadow-lg mx-auto"
+                  style="
+                    max-width: 400px;
+                    border-radius: 20px;
+                    overflow: hidden;
+                    border: 2px solid #e0e0e0;
+                  "
+                >
+                  <div
+                    class="card-header text-center text-white py-3"
+                    style="
+                      background: linear-gradient(
+                        135deg,
+                        #8b4049 0%,
+                        #a0263a 100%
+                      );
+                      font-size: 2rem;
+                      font-weight: bold;
+                    "
+                  >
                     02.2026
                   </div>
-                  <div class="card-body p-3 position-relative" style="background: linear-gradient(135deg, #fdfbfb 0%, #f8f8f8 100%);">
+                  <div
+                    class="card-body p-3 position-relative"
+                    style="
+                      background: linear-gradient(
+                        135deg,
+                        #fdfbfb 0%,
+                        #f8f8f8 100%
+                      );
+                    "
+                  >
                     <!-- Background Year -->
-                    <div class="position-absolute w-100 text-center" style="top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8rem; font-weight: bold; color: rgba(160, 38, 58, 0.08); z-index: 0; line-height: 1;">
+                    <div
+                      class="position-absolute w-100 text-center"
+                      style="
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        font-size: 8rem;
+                        font-weight: bold;
+                        color: rgba(160, 38, 58, 0.08);
+                        z-index: 0;
+                        line-height: 1;
+                      "
+                    >
                       2026
                     </div>
-                    
+
                     <!-- Calendar Grid -->
-                    <div class="position-relative" style="z-index: 1;">
+                    <div class="position-relative" style="z-index: 1">
                       <!-- Day Headers -->
-                      <div class="row text-center mb-2" style="font-size: 0.75rem; font-weight: 600; color: #666;">
+                      <div
+                        class="row text-center mb-2"
+                        style="
+                          font-size: 0.75rem;
+                          font-weight: 600;
+                          color: #666;
+                        "
+                      >
                         <div class="col py-1">MON</div>
                         <div class="col py-1">TUE</div>
                         <div class="col py-1">WED</div>
@@ -980,9 +1074,9 @@
                         <div class="col py-1">SAT</div>
                         <div class="col py-1">SUN</div>
                       </div>
-                      
+
                       <!-- Week 1 -->
-                      <div class="row text-center" style="font-size: 1rem;">
+                      <div class="row text-center" style="font-size: 1rem">
                         <div class="col py-2"></div>
                         <div class="col py-2"></div>
                         <div class="col py-2"></div>
@@ -991,23 +1085,34 @@
                         <div class="col py-2"></div>
                         <div class="col py-2">1</div>
                       </div>
-                      
+
                       <!-- Week 2 -->
-                      <div class="row text-center" style="font-size: 1rem;">
+                      <div class="row text-center" style="font-size: 1rem">
                         <div class="col py-2">2</div>
                         <div class="col py-2">3</div>
                         <div class="col py-2">4</div>
                         <div class="col py-2">5</div>
                         <div class="col py-2">6</div>
                         <div class="col py-2 position-relative">
-                          <span style="position: relative; z-index: 2;">7</span>
-                          <i class="fa-solid fa-heart position-absolute" style="color: #A0263A; font-size: 2.5rem; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; opacity: 0.9;"></i>
+                          <span style="position: relative; z-index: 2">7</span>
+                          <i
+                            class="fa-solid fa-heart position-absolute"
+                            style="
+                              color: #a0263a;
+                              font-size: 2.5rem;
+                              top: 50%;
+                              left: 50%;
+                              transform: translate(-50%, -50%);
+                              z-index: 1;
+                              opacity: 0.9;
+                            "
+                          ></i>
                         </div>
                         <div class="col py-2">8</div>
                       </div>
-                      
+
                       <!-- Week 3 -->
-                      <div class="row text-center" style="font-size: 1rem;">
+                      <div class="row text-center" style="font-size: 1rem">
                         <div class="col py-2">9</div>
                         <div class="col py-2">10</div>
                         <div class="col py-2">11</div>
@@ -1016,9 +1121,9 @@
                         <div class="col py-2">14</div>
                         <div class="col py-2">15</div>
                       </div>
-                      
+
                       <!-- Week 4 -->
-                      <div class="row text-center" style="font-size: 1rem;">
+                      <div class="row text-center" style="font-size: 1rem">
                         <div class="col py-2">16</div>
                         <div class="col py-2">17</div>
                         <div class="col py-2">18</div>
@@ -1027,9 +1132,9 @@
                         <div class="col py-2">21</div>
                         <div class="col py-2">22</div>
                       </div>
-                      
+
                       <!-- Week 5 -->
-                      <div class="row text-center" style="font-size: 1rem;">
+                      <div class="row text-center" style="font-size: 1rem">
                         <div class="col py-2">23</div>
                         <div class="col py-2">24</div>
                         <div class="col py-2">25</div>
@@ -1068,11 +1173,7 @@
               </div>
 
               <div class="overflow-x-hidden">
-                <div
-                  class="py-2"
-                  data-aos="fade-right"
-                  data-aos-duration="800"
-                >
+                <div class="py-2" data-aos="fade-right" data-aos-duration="800">
                   <h2 class="font-esthetic m-0 py-2" style="font-size: 2rem">
                     Lễ Ăn Hỏi
                   </h2>
@@ -1129,7 +1230,6 @@
                     >
                   </div>
                 </div>
-
               </div>
 
               <div class="py-3">
@@ -1154,7 +1254,10 @@
                     style="flex: 1; max-width: 150px"
                   >
                     <div class="mb-2" style="height: 2rem">
-                      <i class="fa-solid fa-heart-circle-check" style="font-size: 2rem"></i>
+                      <i
+                        class="fa-solid fa-heart-circle-check"
+                        style="font-size: 2rem"
+                      ></i>
                     </div>
                     <p class="mb-1 fw-bold" style="font-size: 1.1rem">17:15</p>
                     <p class="mb-0" style="font-size: 0.9rem">Lễ thành hôn</p>
@@ -2104,7 +2207,6 @@
                         name="attended"
                         id="attend-yes"
                         value="true"
-          
                         required
                       />
                       <label class="form-check-label" for="attend-yes">
@@ -2132,7 +2234,11 @@
                     </div>
                   </div>
 
-                  <div class="mb-3" id="event-selection-section" style="display: none">
+                  <div
+                    class="mb-3"
+                    id="event-selection-section"
+                    style="display: none"
+                  >
                     <label class="form-label">
                       Bạn sẽ tham dự lễ nào? <span class="text-danger">*</span>
                     </label>
@@ -2346,7 +2452,7 @@
                   Lời Chúc Từ Khách Mời
                 </h2>
                 <p class="mb-0" style="font-size: 0.95rem">
-                  <i class="fa-solid fa-heart me-2" style="color: #a0263a;"></i>
+                  <i class="fa-solid fa-heart me-2" style="color: #a0263a"></i>
                   Những lời chúc tốt đẹp từ gia đình và bạn bè
                 </p>
               </div>
@@ -2355,10 +2461,16 @@
               <div id="wishes-container" class="mb-4">
                 <!-- Wishes will be loaded here -->
                 <div class="text-center py-5">
-                  <div class="spinner-border" style="color: #a0263a;" role="status">
+                  <div
+                    class="spinner-border"
+                    style="color: #a0263a"
+                    role="status"
+                  >
                     <span class="visually-hidden">Đang tải...</span>
                   </div>
-                  <p class="mt-3" style="font-size: 0.9rem;">Đang tải lời chúc...</p>
+                  <p class="mt-3" style="font-size: 0.9rem">
+                    Đang tải lời chúc...
+                  </p>
                 </div>
               </div>
 
@@ -2373,31 +2485,42 @@
           <section class="bg-light-dark py-5" id="contact">
             <div class="container">
               <div class="text-center">
-                <h2 class="font-esthetic" style="font-size: 2rem">
-                  Liên Hệ
-                </h2>
+                <h2 class="font-esthetic" style="font-size: 2rem">Liên Hệ</h2>
                 <p class="mb-4" style="font-size: 0.95rem">
-                  Nếu có bất kỳ thắc mắc nào, quý khách vui lòng liên hệ với chúng mình
+                  Nếu có bất kỳ thắc mắc nào, quý khách vui lòng liên hệ với
+                  chúng mình
                 </p>
               </div>
 
               <div class="row justify-content-center mt-4 g-3">
                 <!-- Groom Contact -->
                 <div class="col-md-5 col-sm-6 col-12">
-                  <div class="card shadow-sm border-0 rounded-4 text-center h-100">
+                  <div
+                    class="card shadow-sm border-0 rounded-4 text-center h-100"
+                  >
                     <div class="card-body p-3 p-sm-4">
                       <h5 class="font-esthetic mb-3" style="font-size: 1.5rem">
                         Chú Rể
                       </h5>
                       <h6 class="mb-3" style="font-size: 0.95rem">Duy Toàn</h6>
-                      <a 
-                        href="tel:0981022000" 
+                      <a
+                        href="tel:0981022000"
                         class="btn btn-outline-primary rounded-pill w-100 d-flex align-items-center justify-content-center"
-                        style="border-color: #a0263a; color: #a0263a; padding: 0.5rem 1rem; font-size: 0.9rem; max-width: 200px; margin: 0 auto;"
+                        style="
+                          border-color: #a0263a;
+                          color: #a0263a;
+                          padding: 0.5rem 1rem;
+                          font-size: 0.9rem;
+                          max-width: 200px;
+                          margin: 0 auto;
+                        "
                         onmouseover="this.style.backgroundColor='#a0263a'; this.style.color='white'; this.style.borderColor='#a0263a'"
                         onmouseout="this.style.backgroundColor='transparent'; this.style.color='#a0263a'; this.style.borderColor='#a0263a'"
                       >
-                        <i class="fa-solid fa-phone me-1" style="font-size: 0.85rem"></i>
+                        <i
+                          class="fa-solid fa-phone me-1"
+                          style="font-size: 0.85rem"
+                        ></i>
                         <span>0981022000</span>
                       </a>
                     </div>
@@ -2406,20 +2529,34 @@
 
                 <!-- Bride Contact -->
                 <div class="col-md-5 col-sm-6 col-12">
-                  <div class="card shadow-sm border-0 rounded-4 text-center h-100">
+                  <div
+                    class="card shadow-sm border-0 rounded-4 text-center h-100"
+                  >
                     <div class="card-body p-3 p-sm-4">
                       <h5 class="font-esthetic mb-3" style="font-size: 1.5rem">
                         Cô Dâu
                       </h5>
-                      <h6 class="mb-3" style="font-size: 0.95rem"> Phạm Thoan</h6>
-                      <a 
-                        href="tel:0868296367" 
+                      <h6 class="mb-3" style="font-size: 0.95rem">
+                        Phạm Thoan
+                      </h6>
+                      <a
+                        href="tel:0868296367"
                         class="btn btn-outline-primary rounded-pill w-100 d-flex align-items-center justify-content-center"
-                        style="border-color: #a0263a; color: #a0263a; padding: 0.5rem 1rem; font-size: 0.9rem; max-width: 200px; margin: 0 auto;"
+                        style="
+                          border-color: #a0263a;
+                          color: #a0263a;
+                          padding: 0.5rem 1rem;
+                          font-size: 0.9rem;
+                          max-width: 200px;
+                          margin: 0 auto;
+                        "
                         onmouseover="this.style.backgroundColor='#a0263a'; this.style.color='white'; this.style.borderColor='#a0263a'"
                         onmouseout="this.style.backgroundColor='transparent'; this.style.color='#a0263a'; this.style.borderColor='#a0263a'"
                       >
-                        <i class="fa-solid fa-phone me-1" style="font-size: 0.85rem"></i>
+                        <i
+                          class="fa-solid fa-phone me-1"
+                          style="font-size: 0.85rem"
+                        ></i>
                         <span>0868296367</span>
                       </a>
                     </div>
